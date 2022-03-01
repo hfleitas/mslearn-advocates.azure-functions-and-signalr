@@ -5,10 +5,12 @@ const collectionDefinition = { id: "stocks" };
 
 const setupAndSeedDatabase = async ()  => {
 
-  const { database: db } = await client.databases.create(databaseDefinition);
-  console.log('Database created.');
+  const { database: db } = await client.databases.database()
+  .create(databaseDefinition);
+  //const { database: db } = await client.databases.database("stocksdb");
+  //   console.log('Database created.');
 
-  const { container } = await db.containers.create(collectionDefinition);
+  const { container } = await client.database("stocksdb").containers.create(collectionDefinition);
   console.log('Collection created.');
 
   await container.items.create({
